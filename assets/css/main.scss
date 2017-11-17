@@ -1,0 +1,18 @@
+body {
+  background: #DCEFFE;
+} 
+
+.container {
+	max-width: 1140px;
+	margin: 0 auto;
+  padding: 10px;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s
+}
+
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
