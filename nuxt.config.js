@@ -22,6 +22,14 @@ module.exports = {
     'muse-ui/dist/muse-ui.css',
     'muse-ui/dist/theme-light.css'
   ],
+  /* modules: [
+    '@nuxtjs/axios'
+  ],
+  axios: {
+    baseURL: 'https://www.v2ex.com/api',
+    credentials: false,
+    proxyHeaders: false
+  }, */
   /*
   ** Customize the progress bar color
   */

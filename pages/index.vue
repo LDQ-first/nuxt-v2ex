@@ -1,14 +1,16 @@
 <template>
-  <topic-list></topic-list>
+  <topic-list :topicList="hotList"></topic-list>
 </template>
 
 <script>
 import TopicList from '../components/TopicList.vue'
+import { hot } from '../api'
+import axios from 'axios'
 
 export default {
   async asyncData ({ app }) {
     try {
-      const { data } = await app.$axios.get(``)
+      const { data } = await axios.get(hot)
       return {
         hotList: data
       }

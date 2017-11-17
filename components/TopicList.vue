@@ -2,7 +2,7 @@
   <section class="container">
     <mu-card v-for="item in topicList" :key="item.id">
       <nuxt-link :to="`/topic/${item.id}`">
-        <mu-card-header :title="item.title" :subTitle="`by ${item.member.username} • ${item.created | timeAgo}`">
+        <mu-card-header :title="item.title" :subTitle="`${item.member.username} —— ${ago(item.created)}`">
           <mu-avatar :src="item.member.avatar_normal" slot="avatar"/>
         </mu-card-header>
       </nuxt-link>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import { timeAgo } from '~/plugins/filters'
   
   export default {
     props: {
@@ -29,6 +30,9 @@
       }
     },
     methods: {
+      ago (time) {
+        return timeAgo(time)
+      },
       toNode (name) {
         this.$router.push(`/node/${name}`)
       }
