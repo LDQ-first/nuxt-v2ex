@@ -17,7 +17,10 @@ module.exports = {
     ]
   },
   css: [
-    '~assets/css/main.scss'
+    '~assets/css/main.scss',
+    '~assets/font/material-icons.css',
+    'muse-ui/dist/muse-ui.css',
+    'muse-ui/dist/theme-light.css'
   ],
   /*
   ** Customize the progress bar color
