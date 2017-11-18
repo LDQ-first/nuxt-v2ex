@@ -16,6 +16,10 @@ export const topics = (id) => {
   return `${baseURL}topics/show.json?id=${id}`
 }
 
+export const user = (name) => {
+  return `${baseURL}topics/show.json?username=${name}`
+}
+
 export const node = (name) => {
   return `${baseURL}nodes/show.json?name=${name}`
 }
