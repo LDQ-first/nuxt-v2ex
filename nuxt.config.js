@@ -1,3 +1,5 @@
+// const webpack = require('webpack')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -15,6 +17,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic' }
     ]
+    /* script: [
+      '~assets/js/public'
+    ] */
   },
   css: [
     '~assets/css/main.scss',
@@ -48,7 +53,15 @@ module.exports = {
   */
   build: {
     analyze: true,
-    vendor: ['axios'],
+    vendor: ['axios', 'muse-ui'],
+    // dll: true,
+    /* plugins: [
+      // 这个plugin是用于引入dll里生成的json的。
+      new webpack.DllReferencePlugin({
+        context: __dirname,
+        manifest: require('./assets/js/public/vendor-mainfest.json') // 指向这个json
+      })
+    ], */
     /* loaders: [
       {
         test: /\.scss$/,
