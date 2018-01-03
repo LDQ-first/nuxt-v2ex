@@ -8,6 +8,17 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
   return path.join(__dirname, dir)
 } */
 
+const createHappyPlugin = (id, loaders) => {
+  return new HappyPack({
+    id: id,
+    loaders: loaders,
+    threadPool: happyThreadPool,
+    // make happy more verbose with HAPPY_VERBOSE=1
+    // verbose: process.env.HAPPY_VERBOSE === '1'
+    verbose: true
+  })
+}
+
 module.exports = {
   /*
   ** Headers of the page
@@ -76,7 +87,7 @@ module.exports = {
         loader: 'sass-loader'
       }
     ], */
-    loaders: [
+    /* loaders: [
       {
         test: /\.js[x]?$/,
         // include: [resolve('./assets/js')],
@@ -90,6 +101,59 @@ module.exports = {
         loaders: ['babel-loader'],
         threadPool: happyThreadPool,
         verbose: true
+      })
+    ], */
+    loaders: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        // include: [resolve('src')],
+        options: vueLoaderConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'happypack/loader?id=happy-babel-js',
+        exclude: /node_modules/
+        // include: [resolve('src')]
+      },
+      {
+        test: /\.svg$/,
+        loaders: ['svg-sprite-loader', 'happypack/loader?id=happy-svg']
+        // include: [resolve('src/assets/icons'), resolve('src/assets/images')]
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        // include: [resolve('src/assets/images')],
+        query: {
+          limit: 8192,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        query: {
+          limit: 8192,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      }
+    ],
+    plugins: [
+      createHappyPlugin('happy-babel-js', ['babel-loader?cacheDirectory=true']),
+      createHappyPlugin('happy-babel-vue', ['babel-loader?cacheDirectory=true']),
+      createHappyPlugin('happy-css', ['css-loader', 'vue-style-loader']),
+      createHappyPlugin('happy-svg', ['svg-sprite-loader']),
+      // https://github.com/amireh/happypack/pull/131
+      new HappyPack({
+        loaders: [{
+          path: 'vue-loader',
+          query: {
+            loaders: {
+              scss: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+            }
+          }
+        }]
       })
     ],
     /*
