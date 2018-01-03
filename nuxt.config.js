@@ -1,4 +1,12 @@
 // const webpack = require('webpack')
+// const path = require('path')
+const os = require('os')
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+
+/* const resolve = (dir) => {
+  return path.join(__dirname, dir)
+} */
 
 module.exports = {
   /*
@@ -68,6 +76,22 @@ module.exports = {
         loader: 'sass-loader'
       }
     ], */
+    loaders: [
+      {
+        test: /\.js[x]?$/,
+        // include: [resolve('./assets/js')],
+        exclude: /node_modules/,
+        loader: 'happypack/loader?id=happybabel'
+      }
+    ],
+    plugins: [
+      new HappyPack({
+        id: 'happybabel',
+        loaders: ['babel-loader'],
+        threadPool: happyThreadPool,
+        verbose: true
+      })
+    ],
     /*
     ** Run ESLint on save
     */
