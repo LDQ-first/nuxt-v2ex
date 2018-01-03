@@ -108,7 +108,9 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         // include: [resolve('src')],
-        options: vueLoaderConfig
+        options: {
+          js: 'happypack/loader?id=happy-babel-vue'
+        }
       },
       {
         test: /\.js$/,
@@ -116,26 +118,25 @@ module.exports = {
         exclude: /node_modules/
         // include: [resolve('src')]
       },
-      {
+      /* {
         test: /\.svg$/,
         loaders: ['svg-sprite-loader', 'happypack/loader?id=happy-svg']
         // include: [resolve('src/assets/icons'), resolve('src/assets/images')]
-      },
+      }, */
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         loader: 'url-loader',
-        // include: [resolve('src/assets/images')],
         query: {
-          limit: 8192,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          limit: 1000, // 1KO
+          name: 'img/[name].[hash:7].[ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         query: {
-          limit: 8192,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          limit: 1000, // 1 KO
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       }
     ],
@@ -143,7 +144,7 @@ module.exports = {
       createHappyPlugin('happy-babel-js', ['babel-loader?cacheDirectory=true']),
       createHappyPlugin('happy-babel-vue', ['babel-loader?cacheDirectory=true']),
       createHappyPlugin('happy-css', ['css-loader', 'vue-style-loader']),
-      createHappyPlugin('happy-svg', ['svg-sprite-loader']),
+      // createHappyPlugin('happy-svg', ['svg-sprite-loader']),
       // https://github.com/amireh/happypack/pull/131
       new HappyPack({
         loaders: [{
