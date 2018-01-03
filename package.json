@@ -18,7 +18,7 @@
     "lazy": "cnpm install --save vue-lazyload",
     "sass": "cnpm install --save-dev sass-loader node-sass",
     "p": "cnpm install -S vue-pull-to-refresh",
-    "build:dll": "webpack --config ./build/webpack.dll.config.js"
+    "build:dll": "webpack --config ./webpack.dll.config.js"
   },
   "dependencies": {
     "@nuxtjs/axios": "^4.5.0",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "copy-webpack-plugin": "^4.3.1",
     "eslint": "^4.3.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
@@ -38,6 +39,8 @@
     "eslint-plugin-standard": "^3.0.1",
     "happypack": "^4.0.0",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "webpack-notifier": "^1.5.0",
+    "webpack-parallel-uglify-plugin": "^1.0.2"
   }
 }

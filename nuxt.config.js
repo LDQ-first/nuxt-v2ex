@@ -1,14 +1,16 @@
-// const webpack = require('webpack')
-// const path = require('path')
-const os = require('os')
+const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackNotifierPlugin = require('webpack-notifier')
+const path = require('path')
+/* const os = require('os')
 const HappyPack = require('happypack')
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) */
 
 /* const resolve = (dir) => {
   return path.join(__dirname, dir)
 } */
 
-const createHappyPlugin = (id, loaders) => {
+/* const createHappyPlugin = (id, loaders) => {
   return new HappyPack({
     id: id,
     loaders: loaders,
@@ -17,7 +19,7 @@ const createHappyPlugin = (id, loaders) => {
     // verbose: process.env.HAPPY_VERBOSE === '1'
     verbose: true
   })
-}
+} */
 
 module.exports = {
   /*
@@ -37,7 +39,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic' }
     ]
     /* script: [
-      '~assets/js/public'
+      { src: './public/vendor.dll.js' }
     ] */
   },
   css: [
@@ -46,6 +48,8 @@ module.exports = {
     'muse-ui/dist/muse-ui.css',
     'muse-ui/dist/theme-light.css'
   ],
+  cache: true,
+  appTemplatePath: './app.html',
   /* modules: [
     '@nuxtjs/axios'
   ],
@@ -71,16 +75,27 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    analyze: true,
-    vendor: ['axios', 'muse-ui'],
+    // analyze: true,
+    // vendor: ['axios', 'muse-ui'],
     // dll: true,
-    /* plugins: [
-      // 这个plugin是用于引入dll里生成的json的。
-      new webpack.DllReferencePlugin({
+    plugins: [
+      new CopyWebpackPlugin([
+        {
+          context: __dirname,
+          from: './assets/js/',
+          to: './'
+        }
+      ]),
+      new webpack.DllReferencePlugin({ // 这个plugin是用于引入dll里生成的json的。
         context: __dirname,
         manifest: require('./assets/js/public/vendor-mainfest.json') // 指向这个json
+      }),
+      new WebpackNotifierPlugin({
+        title: 'Webpack 编译成功',
+        contentImage: path.resolve(process.cwd(), './assets/img/logo.svg'),
+        alwaysNotify: true
       })
-    ], */
+    ],
     /* loaders: [
       {
         test: /\.scss$/,
@@ -103,7 +118,7 @@ module.exports = {
         verbose: true
       })
     ], */
-    loaders: [
+    /* loaders: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -118,11 +133,6 @@ module.exports = {
         exclude: /node_modules/
         // include: [resolve('src')]
       },
-      /* {
-        test: /\.svg$/,
-        loaders: ['svg-sprite-loader', 'happypack/loader?id=happy-svg']
-        // include: [resolve('src/assets/icons'), resolve('src/assets/images')]
-      }, */
       {
         test: /\.(png|jpe?g|gif|svg)$/,
         loader: 'url-loader',
@@ -156,7 +166,7 @@ module.exports = {
           }
         }]
       })
-    ],
+    ], */
     /*
     ** Run ESLint on save
     */
