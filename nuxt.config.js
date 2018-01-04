@@ -82,16 +82,16 @@ module.exports = {
       new CopyWebpackPlugin([
         {
           context: __dirname,
-          from: './assets/js/',
+          from: './assets/public/',
           to: './'
         }
       ]),
       new webpack.DllReferencePlugin({ // 这个plugin是用于引入dll里生成的json的。
         context: __dirname,
-        manifest: require('./assets/js/public/vendor-mainfest.json') // 指向这个json
+        manifest: require('./assets/public/js/vendor-mainfest.json') // 指向这个json
       }),
       new WebpackNotifierPlugin({
-        title: 'Webpack 编译成功',
+        title: 'Webpack 编译结束',
         contentImage: path.resolve(process.cwd(), './assets/img/logo.svg'),
         alwaysNotify: true
       })
