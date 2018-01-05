@@ -68,7 +68,7 @@ module.exports = {
     duration: 5000
   },
   plugins: [
-    { src: '~plugins/muse-ui.js', ssr: true },
+    { src: '~plugins/muse-ui.js', ssr: false },
     '~plugins/filters.js'
   ],
   /*
