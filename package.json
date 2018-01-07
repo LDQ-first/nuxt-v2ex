@@ -20,6 +20,12 @@
     "p": "cnpm install -S vue-pull-to-refresh",
     "build:dll": "webpack --config ./webpack.dll.config.js"
   },
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "4000"
+    }
+  },
   "dependencies": {
     "@nuxtjs/axios": "^4.5.0",
     "axios": "^0.17.1",
