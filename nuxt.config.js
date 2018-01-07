@@ -68,7 +68,7 @@ module.exports = {
     duration: 5000
   },
   plugins: [
-    { src: '~plugins/muse-ui.js', ssr: false },
+    { src: '~plugins/muse-ui.js', ssr: true },
     '~plugins/filters.js'
   ],
   /*
@@ -79,7 +79,7 @@ module.exports = {
     // vendor: ['axios', 'muse-ui'],
     // dll: true,
     plugins: [
-      new CopyWebpackPlugin([
+      /* new CopyWebpackPlugin([
         {
           context: __dirname,
           from: './assets/public/',
@@ -89,7 +89,7 @@ module.exports = {
       new webpack.DllReferencePlugin({ // 这个plugin是用于引入dll里生成的json的。
         context: __dirname,
         manifest: require('./assets/public/js/vendor-mainfest.json') // 指向这个json
-      }),
+      }), */
       new WebpackNotifierPlugin({
         title: 'Webpack 编译结束',
         contentImage: path.resolve(process.cwd(), './assets/img/logo.svg'),
